@@ -1,0 +1,18 @@
+---
+- name: Delete Jenkins container
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Stop and remove Jenkins container
+      docker_container:
+        name: my_jenkins
+        state: absent
+      register: result
+      ignore_errors: true
+
+    - name: Delete Jenkins image
+      docker_image:
+        name: jenkins/jenkins
+        state: absent
+      when: result is success
