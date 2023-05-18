@@ -10,8 +10,11 @@ Prerequisite:
 
 
 docker-compose.yml can be used to create a jenkins container and mount volume 
+
 ```docker compose up -d```
+
 to clean up 
+
 ```docker compose down```
 
 To Do the same with Ansible you can use this 
@@ -21,8 +24,10 @@ Prerequisite:
 3. install docker sdk for python ```pip3 install docker```
 
 my_playbook can be used to create a jenkins container and mount volume 
+
 ```ansible-playbook my_playbook.yml```
 
-cleanup.yml can be used to clean up the above resources created
+cleanup.yml can be used to clean up the above resources
+
 ```ansible-playbook cleanup.yml```
 
