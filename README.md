@@ -1,6 +1,7 @@
 # Jenkins
-you can simple launch a jenkins container having mount point as jenkins_home folder using 
-```docker run -d -p 80:8080 -v ./jenkins_home:/var/jenkins_home --name jen jenkins/jenkins```
+you can simply launch a jenkins container having mount point as jenkins_home folder using 
+
+```docker run -d -p 80:8080 -v ./jenkins_home:/var/jenkins_home --name my_jenkins jenkins/jenkins```
 
 To Do the same with docker compose you can use this 
 Prerequisite: 
