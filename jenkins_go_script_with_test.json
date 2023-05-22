@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    tools { go '1.19' }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                sh '''
+                echo \'package main
+                import (
+                    "fmt"
+                    "net/http"
+                )
+                func main() {
+                    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+                        fmt.Fprint(w, "Hello!")
+                    })
+                    err := http.ListenAndServe(":80", nil)
+                    if err != nil {
+                        panic(err)
+                    }
+                }\' > ./web_app.go
+                go build ./web_app.go
+                '''
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Testing application...'
+                sh './web_app &'
+                sh '''response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80) &&
+                echo Resoince is: $response &&
+                [ "$response" = "200" ] && exit 0 || exit 1'''
+                
+                
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                sh 'date'
+                sh 'id'
+                sh 'sleep 1'
+            }
+        }
+    }
+}
